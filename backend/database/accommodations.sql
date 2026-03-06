@@ -1,0 +1,21 @@
+CREATE TABLE `accommodations` (
+  `accommodation_id` varchar(48) NOT NULL,
+  `place_id` varchar(48) NOT NULL,
+  `title` varchar(254) NOT NULL,
+  `title_internal` varchar(254) DEFAULT NULL,
+  `type` varchar(20) NOT NULL,
+  `location_details.street` varchar(254) DEFAULT NULL,
+  `location_details.city` varchar(254) DEFAULT NULL,
+  `location_details.postal_code` varchar(20) DEFAULT NULL,
+  `location_details.state` varchar(254) DEFAULT NULL,
+  `location_details.country` varchar(254) DEFAULT NULL,
+  `location_details.longitude` float DEFAULT NULL,
+  `location_details.latitude` float DEFAULT NULL,
+  `accept_adults` tinyint(1) NOT NULL DEFAULT 1,
+  `accept_children` tinyint(1) NOT NULL DEFAULT 1,
+  `accept_infants` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`accommodation_id`),
+  KEY `accommodations_places_FK` (`place_id`),
+  CONSTRAINT `accommodations_places_FK` FOREIGN KEY (`place_id`) REFERENCES `places` (`place_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `accommodations_check` CHECK (`type` in ('properties','hotel'))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci COMMENT='This table saves the accommodations';

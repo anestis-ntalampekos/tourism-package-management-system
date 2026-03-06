@@ -1,0 +1,20 @@
+CREATE TABLE `bookings` (
+  `booking_id` varchar(48) NOT NULL,
+  `plan_id` varchar(48) NOT NULL,
+  `customer_id` varchar(48) DEFAULT NULL,
+  `secretary_id` varchar(48) DEFAULT NULL,
+  `travel_agent_id` varchar(48) DEFAULT NULL,
+  `booking_dates_start` varchar(100) NOT NULL,
+  `booking_dates_end` varchar(100) NOT NULL,
+  `paid` tinyint(1) NOT NULL DEFAULT 1,
+  `card_number` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`booking_id`),
+  KEY `bookings_plans_FK` (`plan_id`),
+  KEY `bookings_customers_FK` (`customer_id`),
+  KEY `bookings_secretariat_FK` (`secretary_id`),
+  KEY `bookings_travel_agents_FK` (`travel_agent_id`),
+  CONSTRAINT `bookings_customers_FK` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `bookings_plans_FK` FOREIGN KEY (`plan_id`) REFERENCES `plans` (`plan_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `bookings_secretariat_FK` FOREIGN KEY (`secretary_id`) REFERENCES `secretariat` (`secretariat_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `bookings_travel_agents_FK` FOREIGN KEY (`travel_agent_id`) REFERENCES `travel_agents` (`travel_agent_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci COMMENT='This table saves the bookings for the plans';

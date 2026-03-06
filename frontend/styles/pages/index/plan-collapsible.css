@@ -1,0 +1,8 @@
+.plan-collapse-area {}
+
+
+.plan-collapse-area .plan-collapse-button-open {
+    background-color: #ccc;
+    color: #000;
+    text-decoration: none;
+}
